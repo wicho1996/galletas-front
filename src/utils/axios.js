@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost/ci-plantilla/',
+    baseURL: 'http://localhost/galletas-back/',
     timeout: 1000,
     // headers: {'X-Custom-Header': 'foobar'}
   });
