@@ -18,7 +18,7 @@ const routes = {
 
 //nkhnjkbnjkbjkkbkbkbjk//
 function ListTest() {
-  const [pages, setPages] = React.useState([]);
+  const [pages, setPages] = React.useState([1,2,3,4,5,6,7,8,9,10]);
 
   const getPages = () => {
     routes.getPages(
@@ -31,7 +31,7 @@ function ListTest() {
   };
 
   React.useEffect(() => {
-    getPages();
+    // getPages();
   }, []);
 
   return (
