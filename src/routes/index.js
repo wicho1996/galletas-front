@@ -11,11 +11,11 @@ import Layout from "../layout/Layout";
 // ==============================|| ROUTING RENDER ||============================== //
 
 const paginas = [
-    { idRuta: 1, codigo: 'disp', nombre: 'Ver Dispositivos', icono: 'MailIcon', tipo: 1 },
-    { idRuta: 2, codigo: 'disp', nombre: 'Ver Dispositivos', icono: 'MailIcon', tipo: 1 },
-    { idRuta: 3, codigo: 'disp', nombre: 'Ver Dispositivos', icono: 'MailIcon', tipo: 1 },
-    { idRuta: 4, codigo: 'disp', nombre: 'Ver Dispositivos', icono: 'MailIcon', tipo: 1 },
-    { idRuta: 5, codigo: 'conf', nombre: 'Configuración', icono: 'MailIcon', tipo: 2 }
+    { idRuta: 1,  nombre: 'Ver Dispositivos', codigo: 'disp', ruta: 'dispositivo', icono: 'MailIcon', tipo: 1 },
+    { idRuta: 2,  nombre: 'Ver Dispositivos', codigo: 'disp', ruta: 'dispositivo', icono: 'MailIcon', tipo: 1 },
+    { idRuta: 3,  nombre: 'Ver Dispositivos', codigo: 'disp', ruta: 'dispositivo', icono: 'MailIcon', tipo: 1 },
+    { idRuta: 4,  nombre: 'Ver Dispositivos', codigo: 'disp', ruta: 'dispositivo', icono: 'MailIcon', tipo: 1 },
+    { idRuta: 5,  nombre: 'Configuración', codigo: 'conf', ruta: 'configuracion', icono: 'MailIcon', tipo: 2 }
 ]
 
 export default function ThemeRoutes() {
