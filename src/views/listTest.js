@@ -41,7 +41,7 @@ function ListTest() {
           <List>
             {pages.map((page) => {
               return (
-                <Collapse key={`${page.idPagina}${page.nombrePagina}`} in={true} timeout="auto" unmountOnExit>
+                <Collapse key={`${page}${page}`} in={true} timeout="auto" unmountOnExit>
                   <ListItem
                     secondaryAction={
                       <IconButton edge="end" aria-label="delete">
