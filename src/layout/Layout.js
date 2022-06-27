@@ -94,7 +94,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Layout(props) {
   const { rutas } = props;
-  
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -105,6 +105,40 @@ export default function Layout(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const MenuItem = (props) => {
+    const { ruta, index } = props;
+    let listItemProps = {
+      component: forwardRef((props, ref) => <Link ref={ref} {...props} to={`${config.basename}${ruta.ruta}`} target="_self" />)
+    }
+    if (ruta?.external) {
+      listItemProps = { component: 'a', href: ruta.ruta, target: "_self" };
+    }
+    return (
+      <ListItem key={ruta.idRuta} disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          {...listItemProps}
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'initial' : 'center',
+            px: 2.5,
+          }}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+            }}
+          >
+            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+          </ListItemIcon>
+          <ListItemText primary={ruta.nombre} sx={{ opacity: open ? 1 : 0 }} />
+        </ListItemButton>
+      </ListItem>
+    )
+  }
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -137,52 +171,13 @@ export default function Layout(props) {
         <Divider />
         <List>
           {rutas.filter(ruta => ruta.tipo == 1).map((ruta, index) => (
-            <ListItem key={ruta.idRuta} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                component = { forwardRef((props, ref) => <Link ref={ref} {...props} to={`${config.basename}${ruta.ruta}`} target={<>Hola</>} />)}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={ruta.nombre} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+            <MenuItem key={index+ruta.idRuta} ruta={ruta} index={index} />
           ))}
         </List>
         <Divider />
         <List>
           {rutas.filter(ruta => ruta.tipo == 2).map((ruta, index) => (
-            <ListItem key={ruta.idRuta} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={ruta.nombre} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+            <MenuItem key={index+ruta.idRuta} ruta={ruta} index={index} />
           ))}
         </List>
       </Drawer>

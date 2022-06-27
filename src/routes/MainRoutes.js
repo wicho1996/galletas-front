@@ -1,27 +1,8 @@
-import { lazy } from 'react';
+import { Fragment, lazy } from 'react';
 import { Navigate } from 'react-router';
 
 // // project imports
 // import MainLayout from 'layout/MainLayout';
-// import Loadable from 'ui-component/Loadable';
-// import SamplePage from 'views/sample-page';
-// import Puestos from 'views/catalogo/Seguridad/Puestos';
-// import { PersonalAdmin, PersonalOper, PersonalVent } from 'views/IntroduccionInicial';
-// import { PersonalAdminEsp, PersonalVentEsp } from 'views/IntroduccionEspecifica';
-// import { Trainer } from 'views/Trainer';
-// import Roles from 'views/catalogo/Seguridad/Roles';
-// import Usuario from 'views/catalogo/Usuario';
-// import Cursos from 'views/catalogo/Cursos';
-// import Grupos from 'views/catalogo/Grupo';
-// import Proveedor from 'views/catalogo/Proveedor';
-// import Encuesta from 'views/catalogo/Encuesta';
-// import Pagina from 'views/catalogo/Pagina';
-// import { ColaboradorDash } from 'views/Dash';
-// import HomeInicio from 'views/HomeParticipantes';
-// import PerfilUsuario from 'views/PerfilUsuario';
-// import Calificaciones from 'views/Calificaciones';
-// import { PanelAlumno } from 'views/Configuracion/PanelAlumno';
-// import { Seguimiento } from 'views/Reportes';
 
 // New Inports
 import Layout from "../layout/Layout";
@@ -30,35 +11,27 @@ import Layout from "../layout/Layout";
 // const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // ==============================|| MAIN ROUTING ||============================== //
-// const elements = {
-//     disp: <></>,
-//     conf: <></>,
-// };
+const elements = {
+    disp: () => <Fragment>Hola 1</Fragment>,
+    conf: () => <Fragment>Hola 2</Fragment>,
+};
 
 const MainRoutes = (rutas, usuario) => ({
     path: '/',
     element: <Layout rutas={rutas} />,
     children: [
-        // {
-        //     path: '/',
-        //     element: usuario.isCrm ? (
-        //         <HomeInicio usuario={usuario} permisos={{ cambiarContrasena: !usuario.idcontrato }} />
-        //     ) : (
-        //         <Trainer usuario={usuario} permisos={{ cambiarContrasena: !usuario.idcontrato }} />
-        //     )
-        // },
-        // {
-        //     path: '/perfil',
-        //     element: <PerfilUsuario usuario={usuario} permisos={{ cambiarContrasena: !usuario.idcontrato }} />
-        // },
-        // ...rutas.map((vst) => {
-        //     const Componente = elements[vst.idpagina] || DashboardDefault;
-        //     return {
-        //         path: vst.raiz === '0' ? (vst.rutaPadre ? vst.rutaPadre : '') + vst.ruta : '/',
-        //         element: <Componente permisos={vst.permisos} usuario={usuario} />
-        //     };
-        // }),
-        // { path: '*', element: <Navigate to="/" /> }
+        {
+            path: '/perfil',
+            element: <Fragment>Hola :D</Fragment>
+        },
+        ...rutas.map((pagina) => {
+            const Componente = elements[pagina.codigo] || <></>;
+            return {
+                path: `/${pagina.ruta}`,
+                element: <Componente />
+            };
+        }),
+        { path: '*', element: <Navigate to="/" /> }
     ]
 });
 
