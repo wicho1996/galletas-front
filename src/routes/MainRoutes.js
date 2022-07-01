@@ -6,6 +6,7 @@ import { Navigate } from 'react-router';
 
 // New Inports
 import Layout from "../layout/Layout";
+import Empleado from "../views/Empleado";
 
 // dashboard routing
 // const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -14,6 +15,7 @@ import Layout from "../layout/Layout";
 const elements = {
     disp: () => <Fragment>Hola 1</Fragment>,
     conf: () => <Fragment>Hola 2</Fragment>,
+    empl: () => <Empleado />
 };
 
 const MainRoutes = (rutas, usuario) => ({
