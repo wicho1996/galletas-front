@@ -18,8 +18,8 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import { Menu, MenuItem } from "@mui/material";
+import { DeleteIcon, FilterListIcon, Add, MoreVert } from "@mui/icons-material";
 import { visuallyHidden } from "@mui/utils";
 
 function createData(name, calories, fat, carbs, protein) {
@@ -139,9 +139,9 @@ function EnhancedTableHead(props) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell, index) => (
           <TableCell
-            key={headCell.id}
+            key={index+headCell.name}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -175,7 +175,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, tableName } = props;
+  const { numSelected, tableName, acciones } = props;
 
   return (
     <Toolbar
@@ -211,7 +211,15 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       )}
 
-      {numSelected > 0 ? (
+      {acciones.map((accion) => (
+        <Tooltip key={accion.label} title={accion.label}>
+          <IconButton onClick={accion.click} >
+            {accion.icon}
+          </IconButton>
+        </Tooltip>
+      ))}
+
+      {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
             <DeleteIcon />
@@ -223,17 +231,19 @@ const EnhancedTableToolbar = (props) => {
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
     </Toolbar>
   );
 };
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  tableName: PropTypes.string.isRequired
 };
 
+
 export default function EnhancedTable(props) {
-  const { tableName, rowId, rows, columns } = props;
+  const { tableName, rowId, rows, columns, acciones, accionesFila } = props;
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -241,6 +251,14 @@ export default function EnhancedTable(props) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [anchorElOptions, setAnchorElOptions] = React.useState({ target: null, row: {}});
+  const handleClickOptions = (row) => (event) => {
+    setAnchorElOptions({ target: event.currentTarget, row });
+  };
+  const handleCloseOptions = () => {
+    setAnchorElOptions({ target: null, row: {} });
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -299,7 +317,7 @@ export default function EnhancedTable(props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} />
+        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} acciones={acciones} />
         <TableContainer>
           <Table
             sx={{ width: "100%" }}
@@ -327,14 +345,13 @@ export default function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row[rowId])}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row[rowId]}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell onClick={(event) => handleClick(event, row[rowId])} padding="checkbox">
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -343,9 +360,10 @@ export default function EnhancedTable(props) {
                           }}
                         />
                       </TableCell>
-                      {columns.map((col) => {
+                      {columns.map((col, index) => {
                         return (
                           <TableCell
+                            key={index+col.name}
                             component="th"
                             id={labelId}
                             scope="row"
@@ -355,6 +373,16 @@ export default function EnhancedTable(props) {
                           </TableCell>
                         );
                       })}
+                      <TableCell padding="checkbox">
+                        <IconButton onClick={handleClickOptions(row)}>
+                          <MoreVert />
+                        </IconButton>
+                      </TableCell>
+                      <Menu id="basic-menu" anchorEl={anchorElOptions.target} open={Boolean(anchorElOptions.target)} onClose={handleCloseOptions} >
+                        {accionesFila.map((acc, index) => (
+                          <MenuItem key={`manuItem${index}`} onClick={() => {acc.click(anchorElOptions.row)}}>{acc.label}</MenuItem>
+                        ))}
+                    </Menu>
                     </TableRow>
                   );
                 })}

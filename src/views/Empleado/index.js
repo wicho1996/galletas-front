@@ -27,10 +27,12 @@ function Empleado() {
 
   // Config
   const acciones = [
-    { label: "Nuevo usuario", icon: <Folder />, click: () => () => {} },
+    { label: "Nuevo usuario", icon: <Folder />, click: () => {alert("Hola")} }
   ];
   const accionesFila = [
-    { label: "Ascender a Trainer", onClick: () => {}, enabled: true },
+    { label: "Editar 1", click: (reg) => {console.log(reg);}, enabled: true },
+    { label: "Editar 2", click: () => {}, enabled: true },
+    { label: "Editar 3", click: () => {}, enabled: true },
   ];
 
   
@@ -39,7 +41,7 @@ function Empleado() {
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Tabla tableName="Empleados" rowId="id_empleado" rows={empleados} columns={headers.empelado} />
+          <Tabla tableName="Empleados" rowId="id_empleado" rows={empleados} columns={headers.empelado} acciones={acciones} accionesFila={accionesFila} />
         </Grid>
       </Grid>
     </div>
