@@ -271,7 +271,6 @@ export default function EnhancedTable(props) {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n[rowId]);
       setSelected(newSelecteds);
-      console.log(newSelecteds);
       return;
     }
     setSelected([]);
