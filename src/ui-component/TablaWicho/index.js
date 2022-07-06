@@ -119,7 +119,8 @@ function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
-    headCells
+    headCells,
+    activeSelect
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -129,7 +130,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
+          {activeSelect && <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -137,7 +138,7 @@ function EnhancedTableHead(props) {
             inputProps={{
               "aria-label": "select all desserts",
             }}
-          />
+          />}
         </TableCell>
         {headCells.map((headCell, index) => (
           <TableCell
@@ -243,7 +244,7 @@ EnhancedTableToolbar.propTypes = {
 
 
 export default function EnhancedTable(props) {
-  const { tableName, rowId, rows, columns, acciones, accionesFila } = props;
+  const { tableName, rowId, rows, columns, acciones, accionesFila, activeSelect } = props;
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -270,6 +271,7 @@ export default function EnhancedTable(props) {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n[rowId]);
       setSelected(newSelecteds);
+      console.log(newSelecteds);
       return;
     }
     setSelected([]);
@@ -332,6 +334,7 @@ export default function EnhancedTable(props) {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
               headCells={columns}
+              activeSelect={activeSelect}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -352,13 +355,13 @@ export default function EnhancedTable(props) {
                       selected={isItemSelected}
                     >
                       <TableCell onClick={(event) => handleClick(event, row[rowId])} padding="checkbox">
-                        <Checkbox
+                        {activeSelect && <Checkbox
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
                           }}
-                        />
+                        />}
                       </TableCell>
                       {columns.map((col, index) => {
                         return (

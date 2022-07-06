@@ -41,7 +41,7 @@ function Empleado() {
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Tabla tableName="Empleados" rowId="id_empleado" rows={empleados} columns={headers.empelado} acciones={acciones} accionesFila={accionesFila} />
+          <Tabla tableName="Empleados" rowId="id_empleado" rows={empleados} columns={headers.empelado} acciones={acciones} accionesFila={accionesFila} activeSelect />
         </Grid>
       </Grid>
     </div>
