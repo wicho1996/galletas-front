@@ -176,7 +176,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, tableName, acciones } = props;
+  const { numSelected, tableName, acciones, selected } = props;
 
   return (
     <Toolbar
@@ -214,7 +214,7 @@ const EnhancedTableToolbar = (props) => {
 
       {acciones.map((accion) => (
         <Tooltip key={accion.label} title={accion.label}>
-          <IconButton onClick={accion.click} >
+          <IconButton onClick={accion.click(selected)} >
             {accion.icon}
           </IconButton>
         </Tooltip>
@@ -318,7 +318,7 @@ export default function EnhancedTable(props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} acciones={acciones} />
+        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} acciones={acciones} selected={selected} />
         <TableContainer>
           <Table
             sx={{ width: "100%" }}

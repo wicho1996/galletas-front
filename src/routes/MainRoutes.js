@@ -13,9 +13,7 @@ import Empleado from "../views/Empleado";
 
 // ==============================|| MAIN ROUTING ||============================== //
 const elements = {
-    disp: () => <Fragment>Hola 1</Fragment>,
-    conf: () => <Fragment>Hola 2</Fragment>,
-    empl: () => <Empleado />
+    empl: () => <Empleado />,
 };
 
 const MainRoutes = (rutas, usuario) => ({
@@ -24,10 +22,11 @@ const MainRoutes = (rutas, usuario) => ({
     children: [
         {
             path: '/perfil',
-            element: <Fragment>Hola :D</Fragment>
+            element: (() => <Fragment>Hola :D</Fragment>)
         },
         ...rutas.map((pagina) => {
-            const Componente = elements[pagina.codigo] || <></>;
+            const Componente = elements[pagina.codigo] || (() => <Fragment>Falta agregar ruta...</Fragment>);
+
             return {
                 path: `/${pagina.ruta}`,
                 element: <Componente />
