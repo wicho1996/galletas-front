@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function DialogMod(props) {
-  const { children, open, scroll, accept, close } = props;
+  const { children, open, title, scroll, accept, close } = props;
 
   // const handleClose = () => {
   //   setOpen(false);
@@ -34,19 +34,20 @@ export default function DialogMod(props) {
     <div>
       <Dialog
         open={open}
+        // maxWidth="lg"
         TransitionComponent={Transition}
         onClose={() => {}}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">{title}</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           {children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={close}>Cancel</Button>
-          <Button onClick={accept}>Accept</Button>
+          <Button onClick={close}>Cancelar</Button>
+          <Button onClick={accept}>Aceptar</Button>
         </DialogActions>
       </Dialog>
     </div>

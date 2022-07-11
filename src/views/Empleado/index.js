@@ -9,6 +9,8 @@ import DialogMod from "../../ui-component/mods/Dialog";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
+import FormEmpelado from "./components/formEmpleado";
+
 function Empleado() {
   const rutas = getRutas();
   const [empleados, setEmpleados] = React.useState([]);
@@ -19,7 +21,7 @@ function Empleado() {
   }, []);
 
   const getEmpleados = () => {
-    rutas.getEmpleados(
+    return rutas.getEmpleados(
       (res) => {
         setEmpleados(res);
       },
@@ -27,10 +29,11 @@ function Empleado() {
     );
   };
 
-  const addEmpleado = (selected) => (event) => {
+  const formAddEmpleado = (selected) => (event) => {
     setDialog({
       open: true,
-      component: <div>Hola</div>,
+      title: 'Agregar empelado',
+      component: <FormEmpelado />,
       accept: () => alert("hola"),
       close: () => setDialog({})
     });
@@ -38,7 +41,7 @@ function Empleado() {
 
   // Config
   const acciones = [
-    { label: "Nuevo usuario", icon: <PersonAdd />, click: addEmpleado }
+    { label: "Nuevo usuario", icon: <PersonAdd />, click: formAddEmpleado }
   ];
   const accionesFila = [
     { label: "Editar", click: (reg) => {console.log(reg);}, enabled: true },
