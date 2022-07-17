@@ -6,6 +6,9 @@ import { Navigate } from 'react-router';
 
 // New Inports
 import Layout from "../layout/Layout";
+import Cliente from "../views/Cliente";
+import Producto from "../views/Producto";
+import Dispositivo from "../views/Dispositivo";
 import Empleado from "../views/Empleado";
 
 // dashboard routing
@@ -13,6 +16,9 @@ import Empleado from "../views/Empleado";
 
 // ==============================|| MAIN ROUTING ||============================== //
 const elements = {
+    clie: () => <Cliente />,
+    prod: () => <Producto />,
+    disp: () => <Dispositivo />,
     empl: () => <Empleado />,
 };
 

@@ -1,24 +1,17 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
+import * as React from "react";
+import Dialog from "@mui/material/Dialog";
 // import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function DialogMod(props) {
-  const { children, open, title, scroll, accept, close } = props;
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const { children, open, title, scroll, close } = props;
 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -36,19 +29,13 @@ export default function DialogMod(props) {
         open={open}
         // maxWidth="lg"
         TransitionComponent={Transition}
-        onClose={() => {}}
+        onClose={close}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">{title}</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
-          {children}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={close}>Cancelar</Button>
-          <Button onClick={accept}>Aceptar</Button>
-        </DialogActions>
+        {children}
       </Dialog>
     </div>
   );
@@ -61,5 +48,6 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
   open: false,
-  scroll: 'paper',
+  scroll: "paper",
+  children: <React.Fragment />,
 };

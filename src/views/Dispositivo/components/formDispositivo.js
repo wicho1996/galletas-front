@@ -9,7 +9,7 @@ import {
 
 import { useForm } from "react-hook-form";
 
-export default function FormEmpleado(props) {
+export default function FormDispositivo(props) {
   const { accept, close, row } = props;
   const { register, handleSubmit } = useForm();
 

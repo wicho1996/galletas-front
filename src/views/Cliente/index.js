@@ -7,32 +7,32 @@ import DialogMod from "../../ui-component/mods/Dialog";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
-import FormEmpelado from "./components/formEmpleado";
+import FormCliente from "./components/formCliente";
 
-function Empleado() {
+function Cliente() {
   const rutas = getRutas();
-  const [empleados, setEmpleados] = React.useState([]);
+  const [clientes, setClientes] = React.useState([]);
   const [dialog, setDialog] = React.useState({});
 
   React.useEffect(() => {
-    getEmpleados();
+    getClientes();
   }, []);
 
-  const getEmpleados = () => {
-    return rutas.getEmpleados(
+  const getClientes = () => {
+    return rutas.getClientes(
       (res) => {
-        setEmpleados(res);
+        setClientes(res);
       },
       { dat: "Hola" }
     );
   };
 
-  const formAddEmpleado = (selected) => (event) => {
+  const formAddCliente = (selected) => (event) => {
     setDialog({
       open: true,
-      title: "Agregar empelado",
+      title: "Agregar cliente",
       component: (
-        <FormEmpelado
+        <FormCliente
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
         />
@@ -40,12 +40,12 @@ function Empleado() {
     });
   };
 
-  const formEditEmpleado = (row) => {
+  const formEditCliente = (row) => {
     setDialog({
       open: true,
-      title: "Editar empelado",
+      title: "Editar cliente",
       component: (
-        <FormEmpelado
+        <FormCliente
           row={row}
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
@@ -56,22 +56,22 @@ function Empleado() {
 
   // Config
   const acciones = [
-    { label: "Nuevo usuario", icon: <PersonAdd />, click: formAddEmpleado },
+    { label: "Nuevo cliente", icon: <PersonAdd />, click: formAddCliente },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditEmpleado, enabled: true, }];
+  const accionesFila = [{ label: "Editar", click: formEditCliente, enabled: true, }];
 
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Tabla
-            tableName="Empleados"
-            rowId="id_empleado"
-            rows={empleados}
-            columns={headers.empelado}
+            tableName="Clientes"
+            rowId="id_cliente"
+            rows={clientes}
+            columns={headers.cliente}
             acciones={acciones}
             accionesFila={accionesFila}
-            activeSelect={true}
+            // activeSelect={true}
           />
         </Grid>
       </Grid>
@@ -80,4 +80,4 @@ function Empleado() {
   );
 }
 
-export default Empleado;
+export default Cliente;

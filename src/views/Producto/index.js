@@ -7,32 +7,32 @@ import DialogMod from "../../ui-component/mods/Dialog";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
-import FormEmpelado from "./components/formEmpleado";
+import FormProducto from "./components/formProducto";
 
-function Empleado() {
+function Producto() {
   const rutas = getRutas();
-  const [empleados, setEmpleados] = React.useState([]);
+  const [productos, setProductos] = React.useState([]);
   const [dialog, setDialog] = React.useState({});
 
   React.useEffect(() => {
-    getEmpleados();
+    getProductos();
   }, []);
 
-  const getEmpleados = () => {
-    return rutas.getEmpleados(
+  const getProductos = () => {
+    return rutas.getProductos(
       (res) => {
-        setEmpleados(res);
+        setProductos(res);
       },
       { dat: "Hola" }
     );
   };
 
-  const formAddEmpleado = (selected) => (event) => {
+  const formAddProducto = (selected) => (event) => {
     setDialog({
       open: true,
-      title: "Agregar empelado",
+      title: "Agregar producto",
       component: (
-        <FormEmpelado
+        <FormProducto
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
         />
@@ -40,12 +40,12 @@ function Empleado() {
     });
   };
 
-  const formEditEmpleado = (row) => {
+  const formEditProducto = (row) => {
     setDialog({
       open: true,
-      title: "Editar empelado",
+      title: "Editar producto",
       component: (
-        <FormEmpelado
+        <FormProducto
           row={row}
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
@@ -56,22 +56,22 @@ function Empleado() {
 
   // Config
   const acciones = [
-    { label: "Nuevo usuario", icon: <PersonAdd />, click: formAddEmpleado },
+    { label: "Nuevo producto", icon: <PersonAdd />, click: formAddProducto },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditEmpleado, enabled: true, }];
+  const accionesFila = [{ label: "Editar", click: formEditProducto, enabled: true, }];
 
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Tabla
-            tableName="Empleados"
-            rowId="id_empleado"
-            rows={empleados}
-            columns={headers.empelado}
+            tableName="Productos"
+            rowId="id_producto"
+            rows={productos}
+            columns={headers.producto}
             acciones={acciones}
             accionesFila={accionesFila}
-            activeSelect={true}
+            // activeSelect={true}
           />
         </Grid>
       </Grid>
@@ -80,4 +80,4 @@ function Empleado() {
   );
 }
 
-export default Empleado;
+export default Producto;
