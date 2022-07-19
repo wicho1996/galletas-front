@@ -6,6 +6,7 @@ import { Navigate } from 'react-router';
 
 // New Inports
 import Layout from "../layout/Layout";
+import Mapa from "../views/Mapa";
 import Cliente from "../views/Cliente";
 import Producto from "../views/Producto";
 import Dispositivo from "../views/Dispositivo";
@@ -16,6 +17,7 @@ import Empleado from "../views/Empleado";
 
 // ==============================|| MAIN ROUTING ||============================== //
 const elements = {
+    mapa: () => <Mapa />,
     clie: () => <Cliente />,
     prod: () => <Producto />,
     disp: () => <Dispositivo />,
