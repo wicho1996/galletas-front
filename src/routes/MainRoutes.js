@@ -6,6 +6,10 @@ import { Navigate } from 'react-router';
 
 // New Inports
 import Layout from "../layout/Layout";
+import Mapa from "../views/Mapa";
+import Cliente from "../views/Cliente";
+import Producto from "../views/Producto";
+import Dispositivo from "../views/Dispositivo";
 import Empleado from "../views/Empleado";
 
 // dashboard routing
@@ -13,9 +17,11 @@ import Empleado from "../views/Empleado";
 
 // ==============================|| MAIN ROUTING ||============================== //
 const elements = {
-    disp: () => <Fragment>Hola 1</Fragment>,
-    conf: () => <Fragment>Hola 2</Fragment>,
-    empl: () => <Empleado />
+    mapa: () => <Mapa />,
+    clie: () => <Cliente />,
+    prod: () => <Producto />,
+    disp: () => <Dispositivo />,
+    empl: () => <Empleado />,
 };
 
 const MainRoutes = (rutas, usuario) => ({
@@ -24,10 +30,11 @@ const MainRoutes = (rutas, usuario) => ({
     children: [
         {
             path: '/perfil',
-            element: <Fragment>Hola :D</Fragment>
+            element: (() => <Fragment>Hola :D</Fragment>)
         },
         ...rutas.map((pagina) => {
-            const Componente = elements[pagina.codigo] || <></>;
+            const Componente = elements[pagina.codigo] || (() => <Fragment>Falta agregar ruta...</Fragment>);
+
             return {
                 path: `/${pagina.ruta}`,
                 element: <Componente />

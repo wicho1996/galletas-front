@@ -119,7 +119,8 @@ function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
-    headCells
+    headCells,
+    activeSelect
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -129,7 +130,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
+          {activeSelect && <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -137,7 +138,7 @@ function EnhancedTableHead(props) {
             inputProps={{
               "aria-label": "select all desserts",
             }}
-          />
+          />}
         </TableCell>
         {headCells.map((headCell, index) => (
           <TableCell
@@ -175,7 +176,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, tableName, acciones } = props;
+  const { numSelected, tableName, acciones, selected } = props;
 
   return (
     <Toolbar
@@ -213,7 +214,7 @@ const EnhancedTableToolbar = (props) => {
 
       {acciones.map((accion) => (
         <Tooltip key={accion.label} title={accion.label}>
-          <IconButton onClick={accion.click} >
+          <IconButton onClick={accion.click(selected)} >
             {accion.icon}
           </IconButton>
         </Tooltip>
@@ -243,7 +244,7 @@ EnhancedTableToolbar.propTypes = {
 
 
 export default function EnhancedTable(props) {
-  const { tableName, rowId, rows, columns, acciones, accionesFila } = props;
+  const { tableName, rowId, rows, columns, acciones, accionesFila, activeSelect } = props;
 
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -317,7 +318,7 @@ export default function EnhancedTable(props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} acciones={acciones} />
+        <EnhancedTableToolbar numSelected={selected.length} tableName={tableName} acciones={acciones} selected={selected} />
         <TableContainer>
           <Table
             sx={{ width: "100%" }}
@@ -332,6 +333,7 @@ export default function EnhancedTable(props) {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
               headCells={columns}
+              activeSelect={activeSelect}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -352,13 +354,13 @@ export default function EnhancedTable(props) {
                       selected={isItemSelected}
                     >
                       <TableCell onClick={(event) => handleClick(event, row[rowId])} padding="checkbox">
-                        <Checkbox
+                        {activeSelect && <Checkbox
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
                           }}
-                        />
+                        />}
                       </TableCell>
                       {columns.map((col, index) => {
                         return (
@@ -408,10 +410,10 @@ export default function EnhancedTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }

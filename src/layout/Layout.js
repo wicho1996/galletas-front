@@ -14,10 +14,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+import { MenuBook, Map, Mail, Group, Inventory, PhoneAndroid, Settings, Engineering } from '@mui/icons-material';
 
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -92,6 +92,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const menuIcon = {
+  Mail: <Mail/>,
+  MenuBook: <MenuBook/>,
+  Map: <Map/>,
+  Group: <Group />,
+  Inventory: <Inventory />,
+  PhoneAndroid: <PhoneAndroid />,
+  Settings: <Settings />,
+  Engineering: <Engineering />,
+}
+
 export default function Layout(props) {
   const { rutas } = props;
 
@@ -131,7 +142,7 @@ export default function Layout(props) {
               justifyContent: 'center',
             }}
           >
-            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            {menuIcon[ruta.icono]}
           </ListItemIcon>
           <ListItemText primary={ruta.nombre} sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>

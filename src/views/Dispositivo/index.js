@@ -7,32 +7,32 @@ import DialogMod from "../../ui-component/mods/Dialog";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
-import FormEmpelado from "./components/formEmpleado";
+import FormDispositivo from "./components/formDispositivo";
 
-function Empleado() {
+function Dispositivo() {
   const rutas = getRutas();
-  const [empleados, setEmpleados] = React.useState([]);
+  const [dispositivos, setDispositivos] = React.useState([]);
   const [dialog, setDialog] = React.useState({});
 
   React.useEffect(() => {
-    getEmpleados();
+    getDispositivos();
   }, []);
 
-  const getEmpleados = () => {
-    return rutas.getEmpleados(
+  const getDispositivos = () => {
+    return rutas.getDispositivos(
       (res) => {
-        setEmpleados(res);
+        setDispositivos(res);
       },
       { dat: "Hola" }
     );
   };
 
-  const formAddEmpleado = (selected) => (event) => {
+  const formAddDispositivo = (selected) => (event) => {
     setDialog({
       open: true,
-      title: "Agregar empelado",
+      title: "Agregar dispositivo",
       component: (
-        <FormEmpelado
+        <FormDispositivo
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
         />
@@ -40,12 +40,12 @@ function Empleado() {
     });
   };
 
-  const formEditEmpleado = (row) => {
+  const formEditDispositivo = (row) => {
     setDialog({
       open: true,
-      title: "Editar empelado",
+      title: "Editar dispositivo",
       component: (
-        <FormEmpelado
+        <FormDispositivo
           row={row}
           accept={(data) => console.log(data)}
           close={() => setDialog({})}
@@ -56,22 +56,22 @@ function Empleado() {
 
   // Config
   const acciones = [
-    { label: "Nuevo usuario", icon: <PersonAdd />, click: formAddEmpleado },
+    { label: "Nuevo dispositivo", icon: <PersonAdd />, click: formAddDispositivo },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditEmpleado, enabled: true, }];
+  const accionesFila = [{ label: "Editar", click: formEditDispositivo, enabled: true, }];
 
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Tabla
-            tableName="Empleados"
-            rowId="id_empleado"
-            rows={empleados}
-            columns={headers.empelado}
+            tableName="Dispositivo"
+            rowId="id_movil"
+            rows={dispositivos}
+            columns={headers.dispositivo}
             acciones={acciones}
             accionesFila={accionesFila}
-            activeSelect={true}
+            // activeSelect={true}
           />
         </Grid>
       </Grid>
@@ -80,4 +80,4 @@ function Empleado() {
   );
 }
 
-export default Empleado;
+export default Dispositivo;
