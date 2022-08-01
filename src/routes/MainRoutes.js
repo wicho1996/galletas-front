@@ -11,6 +11,7 @@ import Cliente from "../views/Cliente";
 import Producto from "../views/Producto";
 import Dispositivo from "../views/Dispositivo";
 import Empleado from "../views/Empleado";
+import Login from "../views/Login";
 
 // dashboard routing
 // const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -29,8 +30,12 @@ const MainRoutes = (rutas, usuario) => ({
     element: <Layout rutas={rutas} />,
     children: [
         {
+            path: '/login',
+            element: <Login />
+        },
+        {
             path: '/perfil',
-            element: (() => <Fragment>Hola :D</Fragment>)
+            element: <Fragment>Hola :D</Fragment>
         },
         ...rutas.map((pagina) => {
             const Componente = elements[pagina.codigo] || (() => <Fragment>Falta agregar ruta...</Fragment>);

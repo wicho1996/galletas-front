@@ -2,6 +2,7 @@ import * as React from "react";
 
 // routing
 import Routes from './routes';
+import Login from './views/Login';
 import NavigationScroll from './routes/NavigationScroll';
 import './App.css'
 
@@ -11,7 +12,8 @@ import './App.css'
 function App() {
   return (
     <NavigationScroll>
-      <Routes />
+      <Login />
+      {/* <Routes /> */}
     </NavigationScroll>
       
   );
