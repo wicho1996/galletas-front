@@ -2,7 +2,8 @@ import axiosSystem from "../../../utils/axiosSystem";
 
 const getRutas = () => {
     return {
-        getUbicacionesDispositivos: axiosSystem("Mapa/getUbicacionesDispositivos")
+        validarSesion: axiosSystem("Login/validarSesion"),
+        validarToken: axiosSystem("Login/validarToken")
     }
 }
 

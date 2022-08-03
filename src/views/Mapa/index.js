@@ -1,34 +1,54 @@
 import * as React from "react";
 
-import { PersonPin } from "@mui/icons-material";
+import { Card, CardContent, CardActions, Typography } from '@mui/material';
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import 'leaflet/dist/leaflet.css';
+import { Mapa, Marker } from "../../ui-component/Mapa";
+import getRutas from "./components/rutas";
 
-import markerIconPng from "leaflet/dist/images/marker-icon.png"
-import {Icon} from 'leaflet'
+function MapaComponent() {
+  const rutas = getRutas();
 
+  const [markers, setMarkers] = React.useState([]);
+  const [timer, setTimer] = React.useState(30);
 
-function Mapa() {
-  // const rutas = getRutas();
-
+  const getUbicaciones = () => {
+    rutas.getUbicacionesDispositivos((res) => {
+      const markers =  res.map((ubi) => {
+        return <Marker key={`market${ubi.id_empleado}`} lat={ubi.lat} lon={ubi.lon} desc={ubi.nombre} />
+      });
+      setMarkers(markers);
+    });
+  }
   
+  setTimeout(() => {
+    const newTime = timer-1;
+    if (timer == 1 || timer < -10) {
+      setTimer(30);
+      getUbicaciones();
+      return;
+    }
+    setTimer(newTime);
+    return;
+  }, 1000);
+
+  React.useEffect(() => {
+    if (markers.length == 0) {
+      getUbicaciones();
+    }
+  }, []);
 
   return (
-    <div>
-      <MapContainer center={[20.615218911574427, -100.41487109002732]} zoom={13} scrollWheelZoom>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={[20.589185586065916, -100.38673614324452]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
-        <Popup>
-          Este es un popo up personalizado
-        </Popup>
-      </Marker>
-    </MapContainer>
-    </div>
+    <Card>
+      <CardContent>
+        <Mapa zoom={13} markers={markers} />
+      </CardContent>
+      <CardActions>
+      <Typography variant="h5" component="div" gutterBottom>
+        {`Actualizar en: ${timer}s`}
+      </Typography>
+      </CardActions>
+    </Card>
   );
 }
 
-export default Mapa;
+export default MapaComponent;
