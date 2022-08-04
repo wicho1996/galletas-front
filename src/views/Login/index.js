@@ -17,7 +17,7 @@ import { Mapa, Marker } from "../../ui-component/Mapa";
 import Routes from "../../routes";
 import getRutas from "./components/rutas";
 
-function MapaComponent() {
+function Login() {
   const rutas = getRutas();
 
   const { register, handleSubmit } = useForm();
@@ -36,9 +36,7 @@ function MapaComponent() {
   const checkToken = () => {
     const token = sessionStorage.getItem("token");
     rutas.validarToken((res) => {
-      if (res.estatus) {
-        setUsuarioValidado(res.estatus);
-      }
+      setUsuarioValidado(res.estatus);
     }, { token });
   };
 
@@ -98,4 +96,4 @@ function MapaComponent() {
 
 }
 
-export default MapaComponent;
+export default Login;

@@ -19,22 +19,23 @@ function MapaComponent() {
       setMarkers(markers);
     });
   }
-  
-  setTimeout(() => {
-    const newTime = timer-1;
-    if (timer == 1 || timer < -10) {
-      setTimer(30);
-      getUbicaciones();
-      return;
-    }
-    setTimer(newTime);
-    return;
-  }, 1000);
+
+  if (timer == 0 || timer < -10) {
+    setTimer(30);
+    getUbicaciones();
+  }
+
 
   React.useEffect(() => {
     if (markers.length == 0) {
       getUbicaciones();
     }
+
+    const superTimer = setInterval(() => {
+      setTimer(prevCount => prevCount -1);
+    }, 1000);
+    return () => clearInterval(superTimer);
+
   }, []);
 
   return (
