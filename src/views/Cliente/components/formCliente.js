@@ -19,49 +19,39 @@ export default function FormCliente(props) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <DialogContent dividers>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <TextField
               required
+              fullWidth
               label="Nombre"
-              defaultValue={row?.nombre}
+              defaultValue={row?.tienda}
               variant="standard"
-              {...register("nombre")}
+              {...register("tienda")}
             />
           </Grid>
           <Grid item xs={4}>
             <TextField
               required
-              label="Apellido 1"
-              defaultValue={row?.apellido_paterno}
+              label="Tipo cliente"
+              defaultValue={row?.id_tipo_cliente}
               variant="standard"
-              {...register("apellido1")}
+              {...register("id_tipo_cliente")}
             />
           </Grid>
           <Grid item xs={4}>
             <TextField
-              label="Apellido 2"
-              defaultValue={row?.apellido_materno}
+              label="Latitud"
+              defaultValue={row?.lat}
               variant="standard"
-              {...register("apellido2")}
+              {...register("lat")}
             />
           </Grid>
           <Grid item xs={4}>
             <TextField
-              required
-              label="Correo"
-              defaultValue={row?.usuario}
+              label="Longitud"
+              defaultValue={row?.lon}
               variant="standard"
-              {...register("correo")}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              required
-              type="password"
-              label="Contraseña"
-              defaultValue={row?.contraseña}
-              variant="standard"
-              {...register("password")}
+              {...register("lon")}
             />
           </Grid>
         </Grid>

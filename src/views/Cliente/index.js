@@ -27,13 +27,32 @@ function Cliente() {
     );
   };
 
+  const addCliente = (cliente) => {
+    return rutas.addCliente(
+      (res) => {
+        setClientes(res.clientes);
+      }, cliente
+    );
+  };
+
+  const setCliente = (cliente) => {
+    return rutas.setCliente(
+      (res) => {
+        setClientes(res.clientes);
+      }, cliente
+    );
+  };
+
   const formAddCliente = (selected) => (event) => {
     setDialog({
       open: true,
       title: "Agregar cliente",
       component: (
         <FormCliente
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            addCliente(data);
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
       ),
@@ -47,7 +66,10 @@ function Cliente() {
       component: (
         <FormCliente
           row={row}
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            setCliente({...data, id_cliente: row.id_cliente});
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
       ),

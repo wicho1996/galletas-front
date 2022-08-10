@@ -6,5 +6,7 @@ const instance = axios.create({
     timeout: 1000,
     // headers: {'X-Custom-Header': 'foobar'}
   });
+  const token = sessionStorage.getItem("token");
+  instance.defaults.headers.authorization = token;
 
   export default instance;
