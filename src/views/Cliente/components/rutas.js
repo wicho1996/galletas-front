@@ -5,7 +5,8 @@ const getRutas = () => {
         getClientes: axiosSystem("Cliente/getClientes"),
         getCliente: axiosSystem("Cliente/getCliente"),
         addCliente: axiosSystem("Cliente/addCliente"),
-        setCliente: axiosSystem("Cliente/setCliente")
+        setCliente: axiosSystem("Cliente/setCliente"),
+        delCliente: axiosSystem("Cliente/delCliente")
     }
 }
 

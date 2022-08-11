@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
+import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
@@ -19,28 +19,28 @@ function Cliente() {
   }, []);
 
   const getClientes = () => {
-    return rutas.getClientes(
-      (res) => {
+    return rutas.getClientes((res) => {
         setClientes(res);
-      },
-      { dat: "Hola" }
+      }, { dat: "Hola" }
     );
   };
 
   const addCliente = (cliente) => {
-    return rutas.addCliente(
-      (res) => {
-        setClientes(res.clientes);
-      }, cliente
-    );
+    return rutas.addCliente((res) => {
+      setClientes(res.clientes);
+    }, cliente);
   };
 
   const setCliente = (cliente) => {
-    return rutas.setCliente(
-      (res) => {
-        setClientes(res.clientes);
-      }, cliente
-    );
+    return rutas.setCliente((res) => {
+      setClientes(res.clientes);
+    }, cliente);
+  };
+
+  const delCliente = (id_cliente) => {
+    return rutas.delCliente((res) => {
+      setClientes(res.clientes);
+    }, { id_cliente });
   };
 
   const formAddCliente = (selected) => (event) => {
@@ -67,7 +67,7 @@ function Cliente() {
         <FormCliente
           row={row}
           accept={(data) => {
-            setCliente({...data, id_cliente: row.id_cliente});
+            setCliente({ ...data, id_cliente: row.id_cliente });
             setDialog({});
           }}
           close={() => setDialog({})}
@@ -76,11 +76,39 @@ function Cliente() {
     });
   };
 
+  const formDelCliente = (row) => {
+    setDialog({
+      open: true,
+      title: "Eliminar cliente",
+      component: (
+        <div>
+          <DialogContent dividers>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                Eliminar cliente !!!
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDialog({})}>Cancelar</Button>
+            <Button onClick={() => {
+              delCliente(row.id_cliente);
+              setDialog({});
+            }}>Aceptar</Button>
+          </DialogActions>
+        </div>
+      ),
+    });
+  };
+
   // Config
   const acciones = [
     { label: "Nuevo cliente", icon: <PersonAdd />, click: formAddCliente },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditCliente, enabled: true, }];
+  const accionesFila = [
+    { label: "Editar", click: formEditCliente, enabled: true },
+    { label: "Eliminar", click: formDelCliente, enabled: true },
+  ];
 
   return (
     <div>
