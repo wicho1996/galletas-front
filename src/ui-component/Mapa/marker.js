@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
@@ -21,6 +21,9 @@ function Mark(props) {
       }
     >
       <Popup>{desc}</Popup>
+      <Tooltip direction="left" opacity={1} permanent>
+      {desc}
+      </Tooltip>
     </Marker>
   );
 }

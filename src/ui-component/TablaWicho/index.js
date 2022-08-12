@@ -382,7 +382,15 @@ export default function EnhancedTable(props) {
                       </TableCell>
                       <Menu id="basic-menu" anchorEl={anchorElOptions.target} open={Boolean(anchorElOptions.target)} onClose={handleCloseOptions} >
                         {accionesFila.map((acc, index) => (
-                          <MenuItem key={`manuItem${index}`} onClick={() => {acc.click(anchorElOptions.row)}}>{acc.label}</MenuItem>
+                          <MenuItem 
+                            key={`manuItem${index}`} 
+                            onClick={() => {
+                              acc.click(anchorElOptions.row);
+                              handleCloseOptions();
+                            }}
+                          >
+                              {acc.label}
+                          </MenuItem>
                         ))}
                     </Menu>
                     </TableRow>
