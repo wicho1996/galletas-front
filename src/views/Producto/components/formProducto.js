@@ -19,7 +19,7 @@ export default function FormProducto(props) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <DialogContent dividers>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <TextField
               required
               label="Nombre"
@@ -31,37 +31,10 @@ export default function FormProducto(props) {
           <Grid item xs={4}>
             <TextField
               required
-              label="Apellido 1"
-              defaultValue={row?.apellido_paterno}
+              label="Costo"
+              defaultValue={row?.costo}
               variant="standard"
-              {...register("apellido1")}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Apellido 2"
-              defaultValue={row?.apellido_materno}
-              variant="standard"
-              {...register("apellido2")}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              required
-              label="Correo"
-              defaultValue={row?.usuario}
-              variant="standard"
-              {...register("correo")}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              required
-              type="password"
-              label="Contraseña"
-              defaultValue={row?.contraseña}
-              variant="standard"
-              {...register("password")}
+              {...register("costo")}
             />
           </Grid>
         </Grid>
