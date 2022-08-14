@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
+import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
@@ -27,13 +27,34 @@ function Dispositivo() {
     );
   };
 
+  const addDispositivo = (dispositivo) => {
+    return rutas.addDispositivo((res) => {
+      setDispositivos(res.dispositivos);
+    }, dispositivo);
+  };
+
+  const setDispositivo = (dispositivo) => {
+    return rutas.setDispositivo((res) => {
+      setDispositivos(res.dispositivos);
+    }, dispositivo);
+  };
+
+  const delDispositivo = (id_movil) => {
+    return rutas.delDispositivo((res) => {
+      setDispositivos(res.dispositivos);
+    }, { id_movil });
+  };
+
   const formAddDispositivo = (selected) => (event) => {
     setDialog({
       open: true,
       title: "Agregar dispositivo",
       component: (
         <FormDispositivo
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            addDispositivo(data);
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
       ),
@@ -47,9 +68,37 @@ function Dispositivo() {
       component: (
         <FormDispositivo
           row={row}
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            setDispositivo({ ...data, id_movil: row.id_movil });
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
+      ),
+    });
+  };
+
+  const formDelDispositivo = (row) => {
+    setDialog({
+      open: true,
+      title: "Eliminar dispositivo",
+      component: (
+        <div>
+          <DialogContent dividers>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                Eliminar dispositivo !!!
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDialog({})}>Cancelar</Button>
+            <Button onClick={() => {
+              delDispositivo(row.id_movil);
+              setDialog({});
+            }}>Aceptar</Button>
+          </DialogActions>
+        </div>
       ),
     });
   };
@@ -58,7 +107,10 @@ function Dispositivo() {
   const acciones = [
     { label: "Nuevo dispositivo", icon: <PersonAdd />, click: formAddDispositivo },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditDispositivo, enabled: true, }];
+  const accionesFila = [
+    { label: "Editar", click: formEditDispositivo, enabled: true },
+    { label: "Eliminar", click: formDelDispositivo, enabled: true }
+  ];
 
   return (
     <div>
