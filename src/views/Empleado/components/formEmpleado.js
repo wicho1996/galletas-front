@@ -34,7 +34,7 @@ export default function FormEmpleado(props) {
               label="Apellido 1"
               defaultValue={row?.apellido_paterno}
               variant="standard"
-              {...register("apellido1")}
+              {...register("apellido_paterno")}
             />
           </Grid>
           <Grid item xs={4}>
@@ -42,26 +42,33 @@ export default function FormEmpleado(props) {
               label="Apellido 2"
               defaultValue={row?.apellido_materno}
               variant="standard"
-              {...register("apellido2")}
+              {...register("apellido_materno")}
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <TextField
+              label="Id Movil"
+              defaultValue={row?.id_movil}
+              variant="standard"
+              {...register("id_movil")}
             />
           </Grid>
           <Grid item xs={4}>
             <TextField
+              label="Telefono"
+              defaultValue={row?.telefono}
+              variant="standard"
+              {...register("telefono")}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
               required
-              label="Correo"
+              fullWidth
+              label="Usuario"
               defaultValue={row?.usuario}
               variant="standard"
-              {...register("correo")}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              required
-              type="password"
-              label="Contraseña"
-              defaultValue={row?.contraseña}
-              variant="standard"
-              {...register("password")}
+              {...register("usuario")}
             />
           </Grid>
         </Grid>

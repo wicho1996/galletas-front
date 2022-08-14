@@ -17,7 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { MenuBook, Map, Mail, Group, Inventory, PhoneAndroid, Settings, Engineering } from '@mui/icons-material';
+import { MenuBook, Map, Mail, Group, Inventory, PhoneAndroid, Settings, Engineering, Cookie } from '@mui/icons-material';
 
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -97,10 +97,10 @@ const menuIcon = {
   MenuBook: <MenuBook/>,
   Map: <Map/>,
   Group: <Group />,
-  Inventory: <Inventory />,
   PhoneAndroid: <PhoneAndroid />,
   Settings: <Settings />,
   Engineering: <Engineering />,
+  Cookie: <Cookie />,
 }
 
 export default function Layout(props) {

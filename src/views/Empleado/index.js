@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
+import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
@@ -27,13 +27,34 @@ function Empleado() {
     );
   };
 
+  const addEmpleado = (empleado) => {
+    return rutas.addEmpleado((res) => {
+      setEmpleados(res.empleados);
+    }, empleado);
+  };
+
+  const setEmpleado = (empleado) => {
+    return rutas.setEmpleado((res) => {
+      setEmpleados(res.empleados);
+    }, empleado);
+  };
+
+  const delEmpleado = (id_empleado) => {
+    return rutas.delEmpleado((res) => {
+      setEmpleados(res.empleados);
+    }, { id_empleado });
+  };
+
   const formAddEmpleado = (selected) => (event) => {
     setDialog({
       open: true,
       title: "Agregar empelado",
       component: (
         <FormEmpelado
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            addEmpleado(data);
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
       ),
@@ -47,9 +68,37 @@ function Empleado() {
       component: (
         <FormEmpelado
           row={row}
-          accept={(data) => console.log(data)}
+          accept={(data) => {
+            setEmpleado({ ...data, id_empleado: row.id_empleado });
+            setDialog({});
+          }}
           close={() => setDialog({})}
         />
+      ),
+    });
+  };
+
+  const formDelEmpleado = (row) => {
+    setDialog({
+      open: true,
+      title: "Eliminar empleado",
+      component: (
+        <div>
+          <DialogContent dividers>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                Eliminar empleado !!!
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDialog({})}>Cancelar</Button>
+            <Button onClick={() => {
+              delEmpleado(row.id_empleado);
+              setDialog({});
+            }}>Aceptar</Button>
+          </DialogActions>
+        </div>
       ),
     });
   };
@@ -58,7 +107,10 @@ function Empleado() {
   const acciones = [
     { label: "Nuevo usuario", icon: <PersonAdd />, click: formAddEmpleado },
   ];
-  const accionesFila = [{ label: "Editar", click: formEditEmpleado, enabled: true, }];
+  const accionesFila = [
+    { label: "Editar", click: formEditEmpleado, enabled: true },
+    { label: "Eliminar", click: formDelEmpleado, enabled: true },
+  ];
 
   return (
     <div>
