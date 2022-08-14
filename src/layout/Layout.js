@@ -14,10 +14,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { MenuBook, Map, Mail, Group, Inventory, PhoneAndroid, Settings, Engineering, Cookie } from '@mui/icons-material';
+import { MenuBook, Map, Mail, Group, Logout, PhoneAndroid, Settings, Engineering, Cookie } from '@mui/icons-material';
 
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -117,6 +118,11 @@ export default function Layout(props) {
     setOpen(false);
   };
 
+  const closeSesion = () => {
+    sessionStorage.removeItem("token");
+    window.location.reload();
+  };
+
   const MenuItem = (props) => {
     const { ruta, index } = props;
     let listItemProps = {
@@ -168,9 +174,16 @@ export default function Layout(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Galletas
-          </Typography>
+          <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Typography variant="h6" noWrap component="div">
+              Galletas
+            </Typography>
+            <Tooltip title="Salir">
+              <IconButton onClick={closeSesion}>
+                <Logout htmlColor='#fff' />
+              </IconButton>
+            </Tooltip>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
