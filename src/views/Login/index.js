@@ -85,7 +85,7 @@ function Login() {
   const cargarRutas = () => {
     return <Routes />;
   };
-
+  console.log(usuarioValidado);
   if (usuarioValidado == 1) {
     return cargarRutas();
   } else if(usuarioValidado == 0){
