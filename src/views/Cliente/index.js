@@ -20,7 +20,7 @@ function Cliente() {
 
   const getClientes = () => {
     return rutas.getClientes((res) => {
-        setClientes(res);
+        setClientes(res.clientes);
       }, { dat: "Hola" }
     );
   };
@@ -50,8 +50,9 @@ function Cliente() {
       component: (
         <FormCliente
           accept={(data) => {
-            addCliente(data);
-            setDialog({});
+            console.log(data);
+            // addCliente(data);
+            // setDialog({});
           }}
           close={() => setDialog({})}
         />
