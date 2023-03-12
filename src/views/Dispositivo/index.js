@@ -3,20 +3,23 @@ import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
-import DialogMod from "../../ui-component/mods/Dialog";
+import DialogGeneral from "../../ui-component/mods/DialogGeneral";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
+
 
 import FormDispositivo from "./components/formDispositivo";
 
 function Dispositivo() {
   const rutas = getRutas();
   const [dispositivos, setDispositivos] = React.useState([]);
-  const [dialog, setDialog] = React.useState({});
+  const [dialogGeneral, setDialogGeneral] = React.useState({});
 
   React.useEffect(() => {
     getDispositivos();
   }, []);
+
+  const handleCloseDialog = () => setDialogGeneral({});
 
   const getDispositivos = () => {
     return rutas.getDispositivos(
@@ -46,60 +49,40 @@ function Dispositivo() {
   };
 
   const formAddDispositivo = (selected) => (event) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Agregar dispositivo",
-      component: (
-        <FormDispositivo
-          accept={(data) => {
-            addDispositivo(data);
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: <FormDispositivo />,
+      accept: (data) => {
+        addDispositivo(data);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
   const formEditDispositivo = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Editar dispositivo",
-      component: (
-        <FormDispositivo
-          row={row}
-          accept={(data) => {
-            setDispositivo({ ...data, id_movil: row.id_movil });
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: ( <FormDispositivo row={row} /> ),
+      accept: (data) => {
+        setDispositivo({ ...data, id_movil: row.id_movil });
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
   const formDelDispositivo = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Eliminar dispositivo",
-      component: (
-        <div>
-          <DialogContent dividers>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                Eliminar dispositivo !!!
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDialog({})}>Cancelar</Button>
-            <Button onClick={() => {
-              delDispositivo(row.id_movil);
-              setDialog({});
-            }}>Aceptar</Button>
-          </DialogActions>
-        </div>
-      ),
+      accept: () => {
+        delDispositivo(row.id_movil);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
@@ -127,7 +110,7 @@ function Dispositivo() {
           />
         </Grid>
       </Grid>
-      <DialogMod {...dialog}>{dialog.component}</DialogMod>
+      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
     </div>
   );
 }

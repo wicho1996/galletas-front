@@ -3,20 +3,22 @@ import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
-import DialogMod from "../../ui-component/mods/Dialog";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
+import DialogGeneral from "../../ui-component/mods/DialogGeneral";
 
 import FormProducto from "./components/formProducto";
 
 function Producto() {
   const rutas = getRutas();
   const [productos, setProductos] = React.useState([]);
-  const [dialog, setDialog] = React.useState({});
+  const [dialogGeneral, setDialogGeneral] = React.useState({});
 
   React.useEffect(() => {
     getProductos();
   }, []);
+
+  const handleCloseDialog = () => setDialogGeneral({});
 
   const getProductos = () => {
     return rutas.getProductos(
@@ -46,60 +48,40 @@ function Producto() {
   };
 
   const formAddProducto = (selected) => (event) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Agregar producto",
-      component: (
-        <FormProducto
-          accept={(data) => {
-            addProducto(data);
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: ( <FormProducto /> ),
+      accept: (data) => {
+        addProducto(data);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
   const formEditProducto = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Editar producto",
-      component: (
-        <FormProducto
-          row={row}
-          accept={(data) => {
-            setProducto({ ...data, id_producto: row.id_producto });
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: ( <FormProducto row={row} /> ),
+      accept: (data) => {
+        setProducto({ ...data, id_producto: row.id_producto });
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
   const formDelProducto = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Eliminar producto",
-      component: (
-        <div>
-          <DialogContent dividers>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                Eliminar producto !!!
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDialog({})}>Cancelar</Button>
-            <Button onClick={() => {
-              delProducto(row.id_producto);
-              setDialog({});
-            }}>Aceptar</Button>
-          </DialogActions>
-        </div>
-      ),
+      accept: () => {
+        delProducto(row.id_producto);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
@@ -127,7 +109,7 @@ function Producto() {
           />
         </Grid>
       </Grid>
-      <DialogMod {...dialog}>{dialog.component}</DialogMod>
+      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
     </div>
   );
 }

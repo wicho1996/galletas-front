@@ -4,7 +4,7 @@ import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
-import DialogMod from "../../ui-component/mods/Dialog";
+import DialogGeneral from "../../ui-component/mods/DialogGeneral";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
@@ -14,7 +14,7 @@ import { setMessage } from "../../reducers/actions/UIMessageActions";
 function Empleado() {
   const rutas = getRutas();
   const [empleados, setEmpleados] = React.useState([]);
-  const [dialog, setDialog] = React.useState({});
+  const [dialogGeneral, setDialogGeneral] = React.useState({});
 
   const state = useSelector(state => state);
   const dispatch = useDispatch();
@@ -22,6 +22,8 @@ function Empleado() {
   React.useEffect(() => {
     getEmpleados();
   }, []);
+
+  const handleCloseDialog = () => setDialogGeneral({});
 
   const getEmpleados = () => {
     return rutas.getEmpleados(
@@ -52,60 +54,40 @@ function Empleado() {
   };
 
   const formAddEmpleado = (selected) => (event) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Agregar empelado",
-      component: (
-        <FormEmpelado
-          accept={(data) => {
-            addEmpleado(data);
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: ( <FormEmpelado /> ),
+      accept: (data) => {
+        addEmpleado(data);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
   const formEditEmpleado = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Editar empelado",
-      component: (
-        <FormEmpelado
-          row={row}
-          accept={(data) => {
-            setEmpleado({ ...data, id_empleado: row.id_empleado });
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
-      ),
+      component: ( <FormEmpelado row={row} /> ),
+      accept: (data) => {
+        setEmpleado({ ...data, id_empleado: row.id_empleado });
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
   const formDelEmpleado = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Eliminar empleado",
-      component: (
-        <div>
-          <DialogContent dividers>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                Eliminar empleado !!!
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDialog({})}>Cancelar</Button>
-            <Button onClick={() => {
-              delEmpleado(row.id_empleado);
-              setDialog({});
-            }}>Aceptar</Button>
-          </DialogActions>
-        </div>
-      ),
+      accept: () => {
+        delEmpleado(row.id_empleado);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog,
     });
   };
 
@@ -133,7 +115,7 @@ function Empleado() {
           />
         </Grid>
       </Grid>
-      <DialogMod {...dialog}>{dialog.component}</DialogMod>
+      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
       {state}
     </div>
   );

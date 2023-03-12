@@ -3,7 +3,7 @@ import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
-import DialogMod from "../../ui-component/mods/Dialog";
+import DialogGeneral from "../../ui-component/mods/DialogGeneral";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
@@ -12,11 +12,13 @@ import FormCliente from "./components/formCliente";
 function Cliente() {
   const rutas = getRutas();
   const [clientes, setClientes] = React.useState([]);
-  const [dialog, setDialog] = React.useState({});
+  const [dialogGeneral, setDialogGeneral] = React.useState({});
 
   React.useEffect(() => {
     getClientes();
   }, []);
+
+  const handleCloseDialog = () => setDialogGeneral({});
 
   const getClientes = () => {
     return rutas.getClientes((res) => {
@@ -44,61 +46,44 @@ function Cliente() {
   };
 
   const formAddCliente = (selected) => (event) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Agregar cliente",
       component: (
-        <FormCliente
-          accept={(data) => {
-            console.log(data);
-            // addCliente(data);
-            // setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
+        <FormCliente />
       ),
+      accept: (data) => {
+        addCliente({ ...data });
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
   const formEditCliente = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Editar cliente",
       component: (
-        <FormCliente
-          row={row}
-          accept={(data) => {
-            setCliente({ ...data, id_cliente: row.id_cliente });
-            setDialog({});
-          }}
-          close={() => setDialog({})}
-        />
+        <FormCliente row={row} />
       ),
+      accept: (data) => {
+        setCliente({ ...data, id_cliente: row.id_cliente });
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
   const formDelCliente = (row) => {
-    setDialog({
+    setDialogGeneral({
       open: true,
       title: "Eliminar cliente",
-      component: (
-        <div>
-          <DialogContent dividers>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                Eliminar cliente !!!
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDialog({})}>Cancelar</Button>
-            <Button onClick={() => {
-              delCliente(row.id_cliente);
-              setDialog({});
-            }}>Aceptar</Button>
-          </DialogActions>
-        </div>
-      ),
+      accept: () => {
+        delCliente(row.id_cliente);
+        setDialogGeneral({});
+      },
+      close: handleCloseDialog
     });
   };
 
@@ -126,7 +111,7 @@ function Cliente() {
           />
         </Grid>
       </Grid>
-      <DialogMod {...dialog}>{dialog.component}</DialogMod>
+      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
     </div>
   );
 }
