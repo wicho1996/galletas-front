@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, TextField } from "@mui/material";
 
 import { useFormContext } from "react-hook-form";
 
+import ControlledAutocomplete from "../../../ui-component/ControlledComponents/ControlledAutocomplete";
+import getRutas from "./rutas";
+
 export default function FormEmpleado(props) {
   const { row } = props;
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
+  const servicios = getRutas();
+
+  const [ dispositivos, setDispositivos ] = useState([]);
+
+  const getDispDisponibles = () => {
+      servicios.getDispDisponibles((dispositivos) => {
+        setDispositivos(dispositivos);
+      }, { estatus: 1 })
+  }
+
+  useEffect(() => {
+    getDispDisponibles();
+  }, []);
+
 
   return (
-    <div>
+    dispositivos.length && <div>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <TextField
@@ -36,12 +53,15 @@ export default function FormEmpleado(props) {
             {...register("apellido_materno")}
           />
         </Grid>
-        <Grid item xs={2}>
-          <TextField
-            label="Id Movil"
-            defaultValue={row?.id_movil}
-            variant="standard"
-            {...register("id_movil")}
+        <Grid item xs={8}>
+          <ControlledAutocomplete
+            control={control}
+            name="dispositivo"
+            options={dispositivos}
+            getOptionLabel={(option) => option.imei}
+            isOptionEqualToValue={(option, value) => option.imei === value.imei}
+            renderInput={(params) => <TextField {...params} variant="standard" label="Dispositivos disponibles" />}
+            defaultValue={dispositivos?.find((movil) => movil.id_movil === row?.id_movil)}
           />
         </Grid>
         <Grid item xs={4}>

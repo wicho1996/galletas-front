@@ -6,7 +6,8 @@ const getRutas = () => {
         getEmpleado: axiosSystem("Empleado/getEmpleado"),
         addEmpleado: axiosSystem("Empleado/addEmpleado"),
         setEmpleado: axiosSystem("Empleado/setEmpleado"),
-        delEmpleado: axiosSystem("Empleado/delEmpleado")
+        delEmpleado: axiosSystem("Empleado/delEmpleado"),
+        getDispDisponibles: axiosSystem("Dispositivo/getDispositivos"),
     }
 }
 
