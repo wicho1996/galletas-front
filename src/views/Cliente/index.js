@@ -107,7 +107,7 @@ function Cliente() {
             columns={headers.cliente}
             acciones={acciones}
             accionesFila={accionesFila}
-            // activeSelect={true}
+            activeSelect={true}
           />
         </Grid>
       </Grid>
