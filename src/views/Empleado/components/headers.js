@@ -5,7 +5,7 @@ const columns = {
         { label: 'Apellido 1', name: 'apellido_paterno', filtrar: true },
         { label: 'Apellido 2', name: 'apellido_materno', filtrar: true },
         { label: 'Telefono', name: 'telefono', filtrar: true },
-        { label: 'id Movil', name: 'id_movil', filtrar: true },
+        { label: 'Desc. Cel.', name: 'descripcion', filtrar: true },
         { label: 'Usuario', name: 'usuario', filtrar: true },
     ]
 };
