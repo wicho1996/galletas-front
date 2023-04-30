@@ -183,6 +183,17 @@ export default function EnhancedTable(props) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+
+  const typeCell = (type, value) => {
+    switch (type) {
+      case 'Money':
+        return `$${value}`;
+    
+      default:
+        return value;
+    }
+  }
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -239,7 +250,7 @@ export default function EnhancedTable(props) {
                             scope="row"
                             padding="none"
                           >
-                            {row[col.name]}
+                            {col?.name?.type ? typeCell(col?.name?.type, row[col.name.name]) : row[col.name]}
                           </TableCell>
                         );
                       })}
