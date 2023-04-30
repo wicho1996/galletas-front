@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useSelector, useDispatch } from 'react-redux'
 import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
@@ -9,15 +8,11 @@ import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
 import FormEmpelado from "./components/formEmpleado";
-import { setMessage } from "../../reducers/actions/UIMessageActions";
 
 function Empleado() {
   const rutas = getRutas();
   const [empleados, setEmpleados] = React.useState([]);
   const [dialogGeneral, setDialogGeneral] = React.useState({});
-
-  const state = useSelector(state => state);
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     getEmpleados();
@@ -42,7 +37,6 @@ function Empleado() {
 
   const setEmpleado = (empleado) => {
     return rutas.setEmpleado((res) => {
-      dispatch(setMessage(res.estatus, res.mensaje));
       setEmpleados(res.empleados);
     }, empleado);
   };
@@ -116,7 +110,6 @@ function Empleado() {
         </Grid>
       </Grid>
       <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
-      {state}
     </div>
   );
 }
