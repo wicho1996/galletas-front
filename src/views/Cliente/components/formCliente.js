@@ -36,8 +36,12 @@ export default function FormCliente(props) {
     getClienteTipos();
   }, []);
 
+  if (clienteTipos.length == 0) {
+    return <></>;
+  }
+
   return (
-    clienteTipos.length > 0 && <div>
+    <div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField

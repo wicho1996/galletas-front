@@ -23,9 +23,12 @@ export default function FormEmpleado(props) {
     getDispDisponibles();
   }, []);
 
+  if (dispositivos.length == 0) {
+    return <></>;
+  }
 
   return (
-    dispositivos.length && <div>
+     <div>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <TextField

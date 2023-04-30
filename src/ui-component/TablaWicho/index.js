@@ -115,7 +115,7 @@ export default function EnhancedTable(props) {
   const { tableName, rowId, rows, columns, acciones, accionesFila, activeSelect } = props;
 
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("nombre");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -130,6 +130,7 @@ export default function EnhancedTable(props) {
   };
 
   const handleRequestSort = (event, property) => {
+    console.log(order, orderBy, property);
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
