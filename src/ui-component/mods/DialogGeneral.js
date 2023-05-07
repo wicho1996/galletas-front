@@ -64,8 +64,10 @@ Dialog.propTypes = {
   scroll: PropTypes.string,
 };
 
-Dialog.defaultProps = {
+export const dialogGeneralPropsDef = {
   open: false,
   scroll: "paper",
   children: <React.Fragment />,
-};
+}
+
+Dialog.defaultProps = dialogGeneralPropsDef;

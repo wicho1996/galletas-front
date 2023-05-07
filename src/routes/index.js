@@ -13,7 +13,9 @@ const paginas = [
     { idRuta: 3,  nombre: 'Productos', codigo: 'prod', ruta: 'productos', icono: 'Cookie', tipo: 2, orden: 7 },
     { idRuta: 4,  nombre: 'Dispositivos', codigo: 'disp', ruta: 'dispositivos', icono: 'PhoneAndroid', tipo: 2, orden: 7 },
     { idRuta: 5,  nombre: 'Empleados', codigo: 'empl', ruta: 'empleados', icono: 'Engineering', tipo: 2, orden: 5 },
-    { idRuta: 6,  nombre: 'Configuración', codigo: 'conf', ruta: 'configuracion', icono: 'Settings', tipo: 2, orden: 6 },
+    { idRuta: 6,  nombre: 'Usuarios', codigo: 'user', ruta: 'usuarios', icono: 'AccountCircle', tipo: 2, orden: 6 },
+    { idRuta: 7,  nombre: 'Configuración', codigo: 'conf', ruta: 'configuracion', icono: 'Settings', tipo: 2, orden: 6 },
+    
     
     
 ]

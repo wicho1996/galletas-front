@@ -56,11 +56,7 @@ const ContextGeneralProvider = ({children}) => {
                     {mensaje.value}
                 </Alert>
             </Snackbar>
-            <Backdrop
-                sx={{ color: '#fff', zIndex: 1000000 }}
-                open={cargando}
-                onClick={cerrarCaragando}
-            >
+            <Backdrop sx={{ color: '#fff', zIndex: 1000000 }} open={cargando} onClick={cerrarCaragando} >
                 {/* <CircularProgress color="inherit" /> */}
                 <img src={logo}></img>
             </Backdrop>
