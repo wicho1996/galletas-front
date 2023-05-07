@@ -1,13 +1,15 @@
-import axiosSystem from "../../../utils/axiosSystem";
+import { useContext } from 'react';
+import { contextGeneral } from '../../../utils/contextGeneralProvider';
 
-const getRutas = () => {
+const GetRutas = () => {
+    const context = useContext(contextGeneral);
     return {
-        getDispositivos: axiosSystem("Dispositivo/getDispositivos"),
-        getDispositivo: axiosSystem("Dispositivo/getDispositivo"),
-        addDispositivo: axiosSystem("Dispositivo/addDispositivo"),
-        setDispositivo: axiosSystem("Dispositivo/setDispositivo"),
-        delDispositivo: axiosSystem("Dispositivo/delDispositivo")
+        getDispositivos: context.servidor("Dispositivo/getDispositivos"),
+        getDispositivo: context.servidor("Dispositivo/getDispositivo"),
+        addDispositivo: context.servidorRespuesta("Dispositivo/addDispositivo"),
+        setDispositivo: context.servidorRespuesta("Dispositivo/setDispositivo"),
+        delDispositivo: context.servidorRespuesta("Dispositivo/delDispositivo")
     }
 }
 
-export default getRutas;
+export default GetRutas;

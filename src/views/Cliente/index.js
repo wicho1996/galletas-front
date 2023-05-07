@@ -5,12 +5,12 @@ import { PersonAdd } from "@mui/icons-material";
 import Tabla from "../../ui-component/TablaWicho";
 import DialogGeneral from "../../ui-component/mods/DialogGeneral";
 import headers from "./components/headers";
-import getRutas from "./components/rutas";
+import GetRutas from "./components/rutas";
 
 import FormCliente from "./components/formCliente";
 
 function Cliente() {
-  const rutas = getRutas();
+  const rutas = GetRutas();
   const [clientes, setClientes] = React.useState([]);
   const [dialogGeneral, setDialogGeneral] = React.useState({});
 

@@ -1,13 +1,15 @@
-import axiosSystem from "../../../utils/axiosSystem";
+import { useContext } from "react";
+import { contextGeneral } from "../../../utils/contextGeneralProvider";
 
-const getRutas = () => {
+const GetRutas = () => {
+    const context = useContext(contextGeneral);
     return {
-        getClientes: axiosSystem("Cliente/getClientes"),
-        getCliente: axiosSystem("Cliente/getCliente"),
-        addCliente: axiosSystem("Cliente/addCliente"),
-        setCliente: axiosSystem("Cliente/setCliente"),
-        delCliente: axiosSystem("Cliente/delCliente")
+        getClientes: context.servidor("Cliente/getClientes"),
+        getCliente: context.servidor("Cliente/getCliente"),
+        addCliente: context.servidorRespuesta("Cliente/addCliente"),
+        setCliente: context.servidorRespuesta("Cliente/setCliente"),
+        delCliente: context.servidorRespuesta("Cliente/delCliente")
     }
 }
 
-export default getRutas;
+export default GetRutas;
