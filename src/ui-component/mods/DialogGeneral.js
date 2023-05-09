@@ -16,7 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function DialogMod(props) {
-  const { children, open, title, scroll, close, accept } = props;
+  const { open, title, scroll, onClose, onAccept, View, propsView } = props;
   const methods = useForm();
 
   const descriptionElementRef = React.useRef(null);
@@ -31,7 +31,7 @@ export default function DialogMod(props) {
     }
   }, [open]);
 
-  const onSubmit = (data) => accept(data);
+  const onSubmit = (data) => onAccept(data);
 
   return (
     <div>
@@ -39,7 +39,7 @@ export default function DialogMod(props) {
         open={open}
         // maxWidth="lg"
         TransitionComponent={Transition}
-        onClose={close}
+        onClose={onClose}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
@@ -47,9 +47,11 @@ export default function DialogMod(props) {
         <DialogTitle id="scroll-dialog-title">{title}</DialogTitle>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <DialogContent dividers>{children}</DialogContent>
+            <DialogContent dividers>
+              {View && <View {...propsView} />}
+            </DialogContent>
             <DialogActions>
-              <Button onClick={close}>Cancelar</Button>
+              <Button onClick={onClose}>Cancelar</Button>
               <Button type="submit">Aceptar</Button>
             </DialogActions>
           </form>
@@ -66,8 +68,12 @@ Dialog.propTypes = {
 
 export const dialogGeneralPropsDef = {
   open: false,
+  title: '',
   scroll: "paper",
-  children: <React.Fragment />,
+  onClose: () => null, 
+  onAccept: () => null, 
+  View: () => <></>, 
+  propsView: {}
 }
 
 Dialog.defaultProps = dialogGeneralPropsDef;

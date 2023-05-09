@@ -3,7 +3,7 @@ import { Grid, DialogContent, DialogActions, Button } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 
 import Tabla from "../../ui-component/TablaWicho";
-import DialogGeneral from "../../ui-component/mods/DialogGeneral";
+import DialogGeneral, { dialogGeneralPropsDef } from "../../ui-component/mods/DialogGeneral";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
 
@@ -12,13 +12,13 @@ import FormEmpelado from "./components/formEmpleado";
 function Empleado() {
   const rutas = getRutas();
   const [empleados, setEmpleados] = React.useState([]);
-  const [dialogGeneral, setDialogGeneral] = React.useState({});
+
+  const [dialogGeneral, setDialogGeneral] = React.useState(dialogGeneralPropsDef);
+  const closeDialog = () => setDialogGeneral(dialogGeneralPropsDef);
 
   React.useEffect(() => {
     getEmpleados();
   }, []);
-
-  const handleCloseDialog = () => setDialogGeneral({});
 
   const getEmpleados = () => {
     return rutas.getEmpleados(
@@ -51,12 +51,12 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Agregar empelado",
-      component: ( <FormEmpelado /> ),
-      accept: (data) => {
+      View: FormEmpelado,
+      onAccept: (data) => {
         addEmpleado(data);
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog,
+      onClose: closeDialog,
     });
   };
 
@@ -64,12 +64,13 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Editar empelado",
-      component: ( <FormEmpelado row={row} /> ),
-      accept: (data) => {
+      propsView: { row },
+      View: FormEmpelado,
+      onAccept: (data) => {
         setEmpleado({ ...data, id_empleado: row.id_empleado });
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog,
+      onClose: closeDialog,
     });
   };
 
@@ -77,11 +78,11 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Eliminar empleado",
-      accept: () => {
+      onAccept: () => {
         delEmpleado(row.id_empleado);
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog,
+      onClose: closeDialog,
     });
   };
 
@@ -109,7 +110,7 @@ function Empleado() {
           />
         </Grid>
       </Grid>
-      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
+      <DialogGeneral {...dialogGeneral} />
     </div>
   );
 }

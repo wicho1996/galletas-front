@@ -5,20 +5,20 @@ import { PersonAdd } from "@mui/icons-material";
 import Tabla from "../../ui-component/TablaWicho";
 import headers from "./components/headers";
 import getRutas from "./components/rutas";
-import DialogGeneral from "../../ui-component/mods/DialogGeneral";
+import DialogGeneral, { dialogGeneralPropsDef } from "../../ui-component/mods/DialogGeneral";
 
 import FormProducto from "./components/formProducto";
 
 function Producto() {
   const rutas = getRutas();
   const [productos, setProductos] = React.useState([]);
-  const [dialogGeneral, setDialogGeneral] = React.useState({});
+
+  const [dialogGeneral, setDialogGeneral] = React.useState(dialogGeneralPropsDef);
+  const closeDialog = () => setDialogGeneral(dialogGeneralPropsDef);
 
   React.useEffect(() => {
     getProductos();
   }, []);
-
-  const handleCloseDialog = () => setDialogGeneral({});
 
   const getProductos = () => {
     return rutas.getProductos(
@@ -51,12 +51,12 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Agregar producto",
-      component: ( <FormProducto /> ),
-      accept: (data) => {
+      View: FormProducto,
+      onAccept: (data) => {
         addProducto(data);
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog
+      onClose: closeDialog
     });
   };
 
@@ -64,12 +64,13 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Editar producto",
-      component: ( <FormProducto row={row} /> ),
-      accept: (data) => {
+      propsView: { row },
+      View: FormProducto,
+      onAccept: (data) => {
         setProducto({ ...data, id_producto: row.id_producto });
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog
+      onClose: closeDialog
     });
   };
 
@@ -77,11 +78,11 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Eliminar producto",
-      accept: () => {
+      onAccept: () => {
         delProducto(row.id_producto);
-        setDialogGeneral({});
+        closeDialog();
       },
-      close: handleCloseDialog
+      onClose: closeDialog
     });
   };
 
@@ -109,7 +110,7 @@ function Producto() {
           />
         </Grid>
       </Grid>
-      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
+      <DialogGeneral {...dialogGeneral} />
     </div>
   );
 }

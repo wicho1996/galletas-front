@@ -5,11 +5,13 @@ import DialogGeneral, { dialogGeneralPropsDef } from "../../ui-component/mods/Di
 
 function Cliente() {
   const [clientes, setClientes] = React.useState([]);
+
   const [dialogGeneral, setDialogGeneral] = React.useState(dialogGeneralPropsDef);
+  const closeDialog = () => setDialogGeneral(dialogGeneralPropsDef);
 
   return (
     <div>
-      <DialogGeneral {...dialogGeneral}>{dialogGeneral.component}</DialogGeneral>
+      <DialogGeneral {...dialogGeneral} />
     </div>
   );
 }
