@@ -3,7 +3,7 @@ import * as React from "react";
 import Tabla from "../../ui-component/TablaWicho";
 import DialogGeneral, { dialogGeneralPropsDef } from "../../ui-component/mods/DialogGeneral";
 
-function Cliente() {
+function Usuarios() {
   const [clientes, setClientes] = React.useState([]);
 
   const [dialogGeneral, setDialogGeneral] = React.useState(dialogGeneralPropsDef);
@@ -16,4 +16,4 @@ function Cliente() {
   );
 }
 
-export default Cliente;
+export default Usuarios;

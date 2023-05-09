@@ -11,6 +11,7 @@ import Cliente from "../views/Cliente";
 import Producto from "../views/Producto";
 import Dispositivo from "../views/Dispositivo";
 import Empleado from "../views/Empleado";
+import Usuarios from '../views/Usuario';
 import Login from "../views/Login";
 
 // dashboard routing
@@ -23,6 +24,7 @@ const elements = {
     prod: () => <Producto />,
     disp: () => <Dispositivo />,
     empl: () => <Empleado />,
+    user: () => <Usuarios />,
 };
 
 const MainRoutes = (rutas, usuario) => ({
