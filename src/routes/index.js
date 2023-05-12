@@ -16,6 +16,7 @@ const paginas = [
     { idRuta: 6,  nombre: 'Usuarios', codigo: 'user', ruta: 'usuarios', icono: 'AccountCircle', tipo: 2, orden: 6 },
     { idRuta: 7,  nombre: 'Configuración', codigo: 'conf', ruta: 'configuracion', icono: 'Settings', tipo: 2, orden: 6 },
     { idRuta: 8,  nombre: 'Transito ', codigo: 'trans', ruta: 'transito', icono: 'LocalShipping', tipo: 2, orden: 7 },
+    { idRuta: 9,  nombre: 'Rutas ', codigo: 'ruta', ruta: 'ruta', icono: 'Route', tipo: 2, orden: 8 },
     
     
 ]

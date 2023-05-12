@@ -18,7 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { MenuBook, Map, Mail, Group, Logout, PhoneAndroid, Settings, Engineering, Cookie, LocalShipping, AccountCircle } from '@mui/icons-material';
+import { MenuBook, Map, Mail, Group, Logout, PhoneAndroid, Settings, Engineering, Cookie, LocalShipping, AccountCircle, Route } from '@mui/icons-material';
 
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -104,6 +104,7 @@ const menuIcon = {
   Cookie: <Cookie />,
   AccountCircle: <AccountCircle />,
   LocalShipping: <LocalShipping />,
+  Route: <Route />,
 }
 
 export default function Layout(props) {

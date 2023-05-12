@@ -14,6 +14,7 @@ import Empleado from "../views/Empleado";
 import Usuarios from '../views/Usuario';
 import Login from "../views/Login";
 import Transito from "../views/Transito";
+import Ruta from '../views/Ruta';
 
 // dashboard routing
 // const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -27,6 +28,7 @@ const elements = {
     empl: () => <Empleado />,
     user: () => <Usuarios />,
     trans: () => <Transito />,
+    ruta: () => <Ruta />,
 };
 
 const MainRoutes = (rutas, usuario) => ({
