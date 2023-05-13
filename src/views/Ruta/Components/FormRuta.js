@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   TextField,
@@ -7,30 +7,23 @@ import {
 
 import { useFormContext } from "react-hook-form";
 
-import GetRutas from "./rutas";
+import Services from "./Services";
 import ControlledAutocomplete from "../../../ui-component/ControlledComponents/ControlledAutocomplete";
 
-export default function FormCliente(props) {
-  const rutas = GetRutas();
+export default function FormRuta(props) {
+  const services = Services();
   const { row } = props;
   const { register, control } = useFormContext();
 
-  const [clienteTipos, setClienteTipos] = React.useState([]);
+  const [clientes, setClientes] = React.useState([]);
 
-  const getClienteTipos = () => {
-    return rutas.getClienteTipos(
-      (res) => {
-        setClienteTipos(res.clienteTipos);
-      },
-      {}
-    );
-  };
+  useEffect(() => {
+    services.getClientes((res) => {
+        setClientes(res.clientes);
+    }, {})
+  }, [])
 
-  React.useEffect(() => {
-    getClienteTipos();
-  }, []);
-
-  if (clienteTipos.length == 0) {
+  if (clientes?.idCliente) {
     return <></>;
   }
 
@@ -47,18 +40,20 @@ export default function FormCliente(props) {
             {...register("tienda")}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
         <ControlledAutocomplete
           control={control}
-          name="clienteTipo"
-          options={clienteTipos}
-          getOptionLabel={(option) => option.nombre}
-          isOptionEqualToValue={(option, value) => option.nombre === value.nombre}
-          renderInput={(params) => <TextField {...params} variant="standard" label="Tipo cliente" />}
-          defaultValue={clienteTipos?.find((tipo) => tipo.id_tipo_cliente == row?.id_tipo_cliente)}
+          name="clientesVisitar"
+          options={clientes}
+          getOptionLabel={(option) => option.tienda}
+          isOptionEqualToValue={(option, value) => option.id_cliente === value.id_cliente}
+          renderInput={(params) => <TextField {...params} variant="standard" label="Clientes a visitar" />}
+          defaultValue={clientes?.find((cliente) => cliente.id_cliente == row?.id_cliente)}
+          multiple
+          freeSolo
         />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             type="number"
             label="Latitud"
@@ -67,7 +62,7 @@ export default function FormCliente(props) {
             {...register("lat")}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             type="number"
             label="Longitud"

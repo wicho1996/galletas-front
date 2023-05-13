@@ -51,12 +51,12 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Agregar empelado",
-      View: FormEmpelado,
-      onAccept: (data) => {
+      stage: FormEmpelado,
+      accept: (data) => {
         addEmpleado(data);
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 
@@ -64,13 +64,13 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Editar empelado",
-      propsView: { row },
-      View: FormEmpelado,
-      onAccept: (data) => {
+      propsstage: { row },
+      stage: FormEmpelado,
+      accept: (data) => {
         setEmpleado({ ...data, id_empleado: row.id_empleado });
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 
@@ -78,11 +78,11 @@ function Empleado() {
     setDialogGeneral({
       open: true,
       title: "Eliminar empleado",
-      onAccept: () => {
+      accept: () => {
         delEmpleado(row.id_empleado);
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 

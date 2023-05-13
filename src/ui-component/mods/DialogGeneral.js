@@ -16,7 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function DialogMod(props) {
-  const { open, title, scroll, onClose, onAccept, View, propsView } = props;
+  const { open, title, scroll, close, accept, stage, propsstage } = props;
   const methods = useForm();
 
   const descriptionElementRef = React.useRef(null);
@@ -31,7 +31,8 @@ export default function DialogMod(props) {
     }
   }, [open]);
 
-  const onSubmit = (data) => onAccept(data);
+  const onSubmit = (data) => accept(data);
+  const Stage = stage;
 
   return (
     <div>
@@ -39,7 +40,7 @@ export default function DialogMod(props) {
         open={open}
         // maxWidth="lg"
         TransitionComponent={Transition}
-        onClose={onClose}
+        onClose={close}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
@@ -48,10 +49,10 @@ export default function DialogMod(props) {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <DialogContent dividers>
-              {View && <View {...propsView} />}
+              {stage && <Stage {...propsstage} />}
             </DialogContent>
             <DialogActions>
-              <Button onClick={onClose}>Cancelar</Button>
+              <Button onClick={close}>Cancelar</Button>
               <Button type="submit">Aceptar</Button>
             </DialogActions>
           </form>
@@ -63,17 +64,22 @@ export default function DialogMod(props) {
 
 Dialog.propTypes = {
   open: PropTypes.bool.isRequired,
+  title: PropTypes.string,
   scroll: PropTypes.string,
+  close: PropTypes.func,
+  accept: PropTypes.func,
+  stage: PropTypes.func,
+  propsstage: PropTypes.object
 };
 
 export const dialogGeneralPropsDef = {
   open: false,
   title: '',
   scroll: "paper",
-  onClose: () => null, 
-  onAccept: () => null, 
-  View: () => <></>, 
-  propsView: {}
+  close: null, 
+  accept:  null, 
+  stage: null, 
+  propsstage: {}
 }
 
 Dialog.defaultProps = dialogGeneralPropsDef;

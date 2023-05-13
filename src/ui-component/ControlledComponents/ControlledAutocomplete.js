@@ -8,7 +8,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 
 
-const ControlledAutocomplete = ({ options = [], renderInput, getOptionLabel, isOptionEqualToValue, onChange: ignored, control, defaultValue, name, renderOption }) => {
+const ControlledAutocomplete = ({ options = [], renderInput, getOptionLabel, isOptionEqualToValue, onChange: ignored, control, defaultValue, name, renderOption, multiple, freeSolo }) => {
 
     return (
         <Controller
@@ -20,7 +20,9 @@ const ControlledAutocomplete = ({ options = [], renderInput, getOptionLabel, isO
             renderOption={renderOption}
             renderInput={renderInput}
             onChange={(e, data) => field.onChange(data)}
-            value={field.value || null}
+            value={field.value || (multiple ? [] : null)}
+            multiple={multiple}
+            freeSolo={freeSolo}
             />
         )}
         onChange={([, data]) => data}

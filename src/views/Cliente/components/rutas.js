@@ -8,7 +8,8 @@ const GetRutas = () => {
         getCliente: context.servidor("Cliente/getCliente"),
         addCliente: context.servidorRespuesta("Cliente/addCliente"),
         setCliente: context.servidorRespuesta("Cliente/setCliente"),
-        delCliente: context.servidorRespuesta("Cliente/delCliente")
+        delCliente: context.servidorRespuesta("Cliente/delCliente"),
+        getClienteTipos: context.servidor("Cliente/getClienteTipos")
     }
 }
 

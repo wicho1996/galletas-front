@@ -5,6 +5,8 @@ import { Add } from "@mui/icons-material";
 import Tabla from "../../ui-component/TablaWicho";
 import DialogGeneral, { dialogGeneralPropsDef } from "../../ui-component/mods/DialogGeneral";
 
+import FormRuta from "./Components/FormRuta";
+
 function Ruta() {
 //   const rutas = GetRutas();
   const [clientes, setClientes] = React.useState([]);
@@ -45,12 +47,12 @@ function Ruta() {
     setDialogGeneral({
       open: true,
       title: "Agregar ruta",
-    //   View: FormCliente, 
-      onAccept: (data) => {
+      stage: FormRuta, 
+      accept: (data) => {
         // addCliente({ ...data });
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
@@ -58,13 +60,13 @@ function Ruta() {
 //     setDialogGeneral({
 //       open: true,
 //       title: "Editar cliente",
-//       propsView: { row },
-//       View: FormCliente,
-//       onAccept: (data) => {
+//       propsstage: { row },
+//       stage: FormCliente,
+//       accept: (data) => {
 //         setCliente({ ...data, id_cliente: row.id_cliente });
 //         closeDialog();
 //       },
-//       onClose: closeDialog
+//       close: closeDialog
 //     });
 //   };
 
@@ -72,11 +74,11 @@ function Ruta() {
 //     setDialogGeneral({
 //       open: true,
 //       title: "Eliminar cliente",
-//       onAccept: () => {
+//       accept: () => {
 //         delCliente(row.id_cliente);
 //         closeDialog();
 //       },
-//       onClose: closeDialog
+//       close: closeDialog
 //     });
 //   };
 

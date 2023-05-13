@@ -49,12 +49,12 @@ function Cliente() {
     setDialogGeneral({
       open: true,
       title: "Agregar cliente",
-      View: FormCliente, 
-      onAccept: (data) => {
+      stage: FormCliente, 
+      accept: (data) => {
         addCliente({ ...data });
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
@@ -62,13 +62,13 @@ function Cliente() {
     setDialogGeneral({
       open: true,
       title: "Editar cliente",
-      propsView: { row },
-      View: FormCliente,
-      onAccept: (data) => {
+      propsstage: { row },
+      stage: FormCliente,
+      accept: (data) => {
         setCliente({ ...data, id_cliente: row.id_cliente });
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
@@ -76,11 +76,11 @@ function Cliente() {
     setDialogGeneral({
       open: true,
       title: "Eliminar cliente",
-      onAccept: () => {
+      accept: () => {
         delCliente(row.id_cliente);
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 

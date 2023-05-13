@@ -52,12 +52,12 @@ function Dispositivo() {
     setDialogGeneral({
       open: true,
       title: "Agregar dispositivo",
-      View: FormDispositivo,
-      onAccept: (data) => {
+      stage: FormDispositivo,
+      accept: (data) => {
         addDispositivo(data);
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 
@@ -65,13 +65,13 @@ function Dispositivo() {
     setDialogGeneral({
       open: true,
       title: "Editar dispositivo",
-      propsView: { row },
-      View: FormDispositivo,
-      onAccept: (data) => {
+      propsstage: { row },
+      stage: FormDispositivo,
+      accept: (data) => {
         setDispositivo({ ...data, id_movil: row.id_movil });
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 
@@ -79,11 +79,11 @@ function Dispositivo() {
     setDialogGeneral({
       open: true,
       title: "Eliminar dispositivo",
-      onAccept: () => {
+      accept: () => {
         delDispositivo(row.id_movil);
         closeDialog();
       },
-      onClose: closeDialog,
+      close: closeDialog,
     });
   };
 

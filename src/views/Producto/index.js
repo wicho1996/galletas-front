@@ -51,12 +51,12 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Agregar producto",
-      View: FormProducto,
-      onAccept: (data) => {
+      stage: FormProducto,
+      accept: (data) => {
         addProducto(data);
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
@@ -64,13 +64,13 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Editar producto",
-      propsView: { row },
-      View: FormProducto,
-      onAccept: (data) => {
+      propsstage: { row },
+      stage: FormProducto,
+      accept: (data) => {
         setProducto({ ...data, id_producto: row.id_producto });
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
@@ -78,11 +78,11 @@ function Producto() {
     setDialogGeneral({
       open: true,
       title: "Eliminar producto",
-      onAccept: () => {
+      accept: () => {
         delProducto(row.id_producto);
         closeDialog();
       },
-      onClose: closeDialog
+      close: closeDialog
     });
   };
 
