@@ -41,10 +41,10 @@ function Producto() {
     }, producto);
   };
 
-  const delProducto = (id_producto) => {
+  const delProducto = (idProducto) => {
     return rutas.delProducto((res) => {
       setProductos(res.productos);
-    }, { id_producto });
+    }, { idProducto });
   };
 
   const formAddProducto = (selected) => (event) => {
@@ -67,7 +67,7 @@ function Producto() {
       propsstage: { row },
       stage: FormProducto,
       accept: (data) => {
-        setProducto({ ...data, id_producto: row.id_producto });
+        setProducto({ ...data, idProducto: row.idProducto });
         closeDialog();
       },
       close: closeDialog
@@ -79,7 +79,7 @@ function Producto() {
       open: true,
       title: "Eliminar producto",
       accept: () => {
-        delProducto(row.id_producto);
+        delProducto(row.idProducto);
         closeDialog();
       },
       close: closeDialog
@@ -101,7 +101,7 @@ function Producto() {
         <Grid item xs={12}>
           <Tabla
             tableName="Productos"
-            rowId="id_producto"
+            rowId="idProducto"
             rows={productos}
             columns={headers.producto}
             acciones={acciones}

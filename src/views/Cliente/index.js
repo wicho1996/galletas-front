@@ -39,10 +39,10 @@ function Cliente() {
     }, cliente);
   };
 
-  const delCliente = (id_cliente) => {
+  const delCliente = (idCliente) => {
     return rutas.delCliente((res) => {
       setClientes(res.clientes);
-    }, { id_cliente });
+    }, { idCliente });
   };
 
   const formAddCliente = (selected) => (event) => {
@@ -65,7 +65,7 @@ function Cliente() {
       propsstage: { row },
       stage: FormCliente,
       accept: (data) => {
-        setCliente({ ...data, id_cliente: row.id_cliente });
+        setCliente({ ...data, idCliente: row.idCliente });
         closeDialog();
       },
       close: closeDialog
@@ -77,7 +77,7 @@ function Cliente() {
       open: true,
       title: "Eliminar cliente",
       accept: () => {
-        delCliente(row.id_cliente);
+        delCliente(row.idCliente);
         closeDialog();
       },
       close: closeDialog
@@ -99,7 +99,7 @@ function Cliente() {
         <Grid item xs={12}>
           <Tabla
             tableName="Clientes"
-            rowId="id_cliente"
+            rowId="idCliente"
             rows={clientes}
             columns={headers.cliente}
             acciones={acciones}

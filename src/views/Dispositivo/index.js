@@ -42,10 +42,10 @@ function Dispositivo() {
     }, dispositivo);
   };
 
-  const delDispositivo = (id_movil) => {
+  const delDispositivo = (idMovil) => {
     return rutas.delDispositivo((res) => {
       setDispositivos(res.dispositivos);
-    }, { id_movil });
+    }, { idMovil });
   };
 
   const formAddDispositivo = (selected) => (event) => {
@@ -68,7 +68,7 @@ function Dispositivo() {
       propsstage: { row },
       stage: FormDispositivo,
       accept: (data) => {
-        setDispositivo({ ...data, id_movil: row.id_movil });
+        setDispositivo({ ...data, idMovil: row.idMovil });
         closeDialog();
       },
       close: closeDialog,
@@ -80,7 +80,7 @@ function Dispositivo() {
       open: true,
       title: "Eliminar dispositivo",
       accept: () => {
-        delDispositivo(row.id_movil);
+        delDispositivo(row.idMovil);
         closeDialog();
       },
       close: closeDialog,
@@ -102,7 +102,7 @@ function Dispositivo() {
         <Grid item xs={12}>
           <Tabla
             tableName="Dispositivo"
-            rowId="id_movil"
+            rowId="idMovil"
             rows={dispositivos}
             columns={headers.dispositivo}
             acciones={acciones}

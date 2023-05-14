@@ -46,9 +46,9 @@ export default function FormRuta(props) {
           name="clientesVisitar"
           options={clientes}
           getOptionLabel={(option) => option.tienda}
-          isOptionEqualToValue={(option, value) => option.id_cliente === value.id_cliente}
+          isOptionEqualToValue={(option, value) => option.idCliente === value.idCliente}
           renderInput={(params) => <TextField {...params} variant="standard" label="Clientes a visitar" />}
-          defaultValue={clientes?.find((cliente) => cliente.id_cliente == row?.id_cliente)}
+          defaultValue={clientes?.find((cliente) => cliente.idCliente == row?.idCliente)}
           multiple
           freeSolo
         />

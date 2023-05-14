@@ -43,17 +43,17 @@ export default function FormEmpleado(props) {
           <TextField
             required
             label="Apellido 1"
-            defaultValue={row?.apellido_paterno}
+            defaultValue={row?.apellidoPaterno}
             variant="standard"
-            {...register("apellido_paterno")}
+            {...register("apellidoPaterno")}
           />
         </Grid>
         <Grid item xs={4}>
           <TextField
             label="Apellido 2"
-            defaultValue={row?.apellido_materno}
+            defaultValue={row?.apellidoMaterno}
             variant="standard"
-            {...register("apellido_materno")}
+            {...register("apellidoMaterno")}
           />
         </Grid>
         <Grid item xs={8}>
@@ -64,7 +64,7 @@ export default function FormEmpleado(props) {
             getOptionLabel={(option) => option.imei}
             isOptionEqualToValue={(option, value) => option.imei === value.imei}
             renderInput={(params) => <TextField {...params} variant="standard" label="Dispositivos disponibles" />}
-            defaultValue={dispositivos?.find((movil) => movil.id_movil === row?.id_movil)}
+            defaultValue={dispositivos?.find((movil) => movil.idMovil === row?.idMovil)}
           />
         </Grid>
         <Grid item xs={4}>
